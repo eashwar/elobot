@@ -1,0 +1,21 @@
+{
+  "name": "elobot",
+  "version": "1.0.0",
+  "description": "A simple Discord bot to get League of Legends rank info.",
+  "main": "bot.js",
+  "scripts": {"start": "node bot.js"},
+  "author": "eashwar",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "discord.io": "github:woor/discord.io#gateway_v6",
+    "jsonframe-cheerio": "3.0.1",
+    "op.gg-api": "^2.0.5-alpha",
+    "request": "^2.83.0",
+    "request-sync": "^1.0.0",
+    "shelljs": "^0.8.1",
+    "website-scraper": "^3.3.2",
+    "website-scraper-phantom": "^0.1.0",
+    "winston": "2.4.0"
+  }
+}
