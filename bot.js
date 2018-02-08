@@ -174,7 +174,7 @@ bot.on('message', function (user, userID, channelID, message, evt)
                 helpMessage += '- Use `!elobot list` to view all of the current aliases saved.\n'
                 helpMessage += '- Use `!elobot rank [name]` to get the Solo/Duo rank and LP for a person. You may use that person\'s actual username or their alias.\n'
                 helpMessage += '- Use `!elobot ping` to play some ping pong with me!\n'
-                helpMessage += '- Finally, use `!elobot help` to bring this message up again.'
+                helpMessage += '- Finally, use `!elobot help` to bring this message up again.\n'
                 helpMessage += '- If you want anything else, ask <@!118538456522555394> to do it.'
                 bot.sendMessage(
                 {
