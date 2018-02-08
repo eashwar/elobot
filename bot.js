@@ -3,11 +3,20 @@ let logger = require('winston');
 let fs = require('fs');
 let auth = require('./auth.json');
 let request = require('request');
+let _ = require('lodash');
 let aliases = JSON.parse(fs.readFileSync('./data/aliases.txt', 'utf8'));
 
 function getKeyByValue(object, value)
 {
-  return Object.keys(object).find(key => object[key] === value);
+  return _.findKey(object, function(v){return v == value});
+}
+function isValueInDict(object, value)
+{
+    for (const k in object) {
+    if (object[k] == value) {
+        return true;
+    }
+}
 }
 
 logger.remove(logger.transports.Console);
@@ -68,7 +77,7 @@ bot.on('message', function (user, userID, channelID, message, evt)
                     let nickname = args[1];
                     if (!(nickname in aliases)) // If nobody has this nickname
                     {
-                        if (Object.values(aliases).indexOf(uname) > -1) // If the user already has a nickname, overwrite
+                        if (isValueInDict(aliases, uname)) // If the user already has a nickname, overwrite
                         {
                             if (nickname !== getKeyByValue(aliases, uname))
                             {
@@ -128,15 +137,18 @@ bot.on('message', function (user, userID, channelID, message, evt)
                 });
                 break;
             case 'rank':
-                var summoner = "";
+                var summoner = '';
+                var whomst = '';
                 if (args[1] in aliases)
                 {
                     summoner = aliases[args[1]]
+                    whomst = args[1];
                 }else {
                     for (var i = 1; i < args.length; i++)
                     {
-                        summoner += args[i] + " "
+                        summoner += args[i] + ' ';
                     }
+                    whomst = summoner;
                 }
                 var rankInfo;
                 request.get({url:'http://na.op.gg/summoner/userName=' + encodeURIComponent(summoner)}, function (err, res, body)
@@ -151,7 +163,7 @@ bot.on('message', function (user, userID, channelID, message, evt)
                     bot.sendMessage(
                     {
                         to: channelID,
-                        message: 'BEEP BOOP ' + cmd.toUpperCase() + ' ELO: '+ rankInfo +' BEEP BOOP'
+                        message: 'BEEP BOOP ' + whomst.toUpperCase() + ' ELO: '+ rankInfo +' BEEP BOOP'
                     });
                 });
 
